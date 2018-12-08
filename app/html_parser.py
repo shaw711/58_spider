@@ -10,11 +10,11 @@ class HtmlParser(object):
 	def _get_new_urls(self, soup):
 		new_urls = set()
 		
-		links = soup.find_all('a', href=re.compile(r'https://gz.58.com/ershouche/.*shtml\?sourceKey'))
-		# print(links)
+		links = soup.find_all('h2', class_ ="title")
+		
 		for link in links:
-			new_url = link['href']
-#			print(new_url)
+			new_url = link.find('a')['href']
+#			
 			new_urls.add(new_url)
 		return new_urls
 		
@@ -22,17 +22,11 @@ class HtmlParser(object):
 		res_data = {}
 		
 		res_data['url'] = page_url
-#		print('@@@@@')
-#		print(page_url)
-#		print('@@@@')
+
+		phone = soup.find('p', class_="phone-num").get_text()
+		res_data['title'] = phone
 		
-		title_node = soup.find('div', {"class":'content_title'}).find('p',{"class":'title_p'})
-		res_data['title'] = title_node.get_text()
-		
-		price_node = soup.find('span', class_="jiage")
-		
-		price = re.match(r'\d+\.*\d*', price_node.get_text())
-		res_data['price'] = float(price.group(0))
+		res_data['price'] = float('0')
 		
 		return res_data
 	

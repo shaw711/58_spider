@@ -11,7 +11,7 @@ class SpiderMain(object):
 		self.outputer = html_output.HtmlOutputer()
 		
 	def craw(self, root_url):
-		for i in range(1, 71):
+		for i in range(45, 71):
 #		for i in range(1, 2):
 			full_url = root_url + str(i)
 			print('craw :', i, full_url)
@@ -19,7 +19,6 @@ class SpiderMain(object):
 			new_urls = self.parser.parse_urls(html_page_cont)
 			for url in new_urls:
 				print('craw', i, url)
-#				url = r"https://gz.58.com/ershouche/36361926194843x.shtml?sourceKey=NDHas1YqwzbLCCPRFSICniL5t44tYwnc04dVZHpLEaN3O2aOTiD54ddUWWfqTuWX6AoIlDGkVYbTZR7B2DtXv3BRh94p9ccbYIBAEVIjaHI&page_id=501&slot_id=31&queryUniqueId=1070932275111186432&typos=advertInfo_l117&infotype=advert_2_2&&"
 				try:
 					html_cont = self.downloader.download(url)
 					# print(html_cont)
@@ -33,7 +32,7 @@ class SpiderMain(object):
 			time.sleep(2)
 	
 if __name__ == '__main__':
-	root_url = 'http://gz.58.com/ershouche/pn'
+	root_url = 'https://zs.58.com/ershoufang/pn'
 	obj_spider = SpiderMain()
 	obj_spider.craw(root_url)
 	
